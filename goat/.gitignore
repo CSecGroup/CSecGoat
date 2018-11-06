@@ -10,6 +10,8 @@ logs/
 .settings
 .springBeans
 .sts4-cache
+.idea
+
 
 ### IntelliJ IDEA ###
 .idea
@@ -24,3 +26,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+logs/
