@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csec.goat.dao.AdminWarehouseDao">
+
+    <resultMap id="AdminWarehouseMap" type="com.csec.goat.entity.AdminWarehouse">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="admin_id" property="adminId" jdbcType="BIGINT"/>
+        <result column="warehouse_ids" property="warehouseIds" jdbcType="VARCHAR"/>
+        <result column="operator_id" property="operatorId" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+       id,
+       admin_id,
+       warehouse_ids,
+       operator_id
+    </sql>
+
+    <select id="getAdminWarehouseByAdminId" parameterType="java.lang.Long" resultMap="AdminWarehouseMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM admin_warehouse WHERE admin_id = #{adminId}
+    </select>
+
+    <select id="getAdminWarehouseByAdminIdList" parameterType="java.util.List" resultMap="AdminWarehouseMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM admin_warehouse WHERE admin_id IN
+        <foreach collection="list" item="adminId" open="(" close=")"  separator=",">
+            #{adminId}
+        </foreach>
+    </select>
+
+    <insert id="saveAdminWarehouse" parameterType="com.csec.goat.entity.AdminWarehouse" useGeneratedKeys="true" keyProperty="id">
+        insert into admin_warehouse(admin_id,warehouse_ids,operator_id)
+        VALUES (#{adminId},#{warehouseIds},#{operatorId})
+    </insert>
+
+    <update id="updateAdminWarehouse" parameterType="com.csec.goat.entity.AdminWarehouse">
+        UPDATE admin_warehouse SET warehouse_ids=#{warehouseIds},operator_id=#{operatorId}
+        WHERE id=#{id}
+    </update>
+
+    <select id="getAdminWarehouseByWhId" parameterType="com.csec.goat.entity.AdminWarehouse" resultMap="AdminWarehouseMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM admin_warehouse WHERE warehouse_ids = '${warehouseIds}'
+    </select>
+</mapper>
