@@ -127,29 +127,6 @@ public class DeserializationController {
         }
     }
 
-    @RequestMapping(value="writeiastobject.html",method= RequestMethod.GET)
-    public String writeIastObject(ModelMap modelMap, HttpServletRequest request) throws IOException {
-        //创建一个包含对象进行反序列化信息的”objectexp”数据文件
-        astpiastclass myObj = new astpiastclass(9527,"astpiast");
-        //创建一个包含对象进行反序列化信息的”object”数据文件
-        ObjectOutputStream os;
-        try {
-            FileOutputStream fos = new FileOutputStream("/Users/cryin/code/tcscan/data/java/object.db");
-            //writeObject()方法将myObj对象写入object文件
-            os = new ObjectOutputStream(fos);
-            os.writeObject(myObj);
-            os.close();
-
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "writeiastobject ok!";
-
-    }
 
 
 }
